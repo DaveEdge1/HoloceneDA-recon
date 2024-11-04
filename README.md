@@ -17,7 +17,7 @@ Place the config_default.yml file in this directory
 
 
 ## 3. Pull the Docker image
-From the command line execute: docker pull davidedge/lipd_webapps_holocene_da
+From the command line execute: docker pull davidedge/lipd_webapps:holocene_da
 This will take some time - the image is large
 
 
