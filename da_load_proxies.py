@@ -44,7 +44,7 @@ def load_proxies(options):
                     print('Fixing GISP2 ages:',all_ts_12k[i]['paleoData_variableName'],', Index:',i)
                     all_ts_12k[i]['age'] = gisp2_ages
             #
-            proxy_ts_temp12k = lipd.filterTs(all_ts_12k,      'paleoData_inCompilation == Temp12k')
+            proxy_ts_temp12k = all_ts_12k
             proxy_ts_temp12k = lipd.filterTs(proxy_ts_temp12k,'paleoData_units == degC')
             if options['reconstruction_type'] == 'absolute': proxy_ts_temp12k = lipd.filterTs(proxy_ts_temp12k,'paleoData_datum == abs')
             #
@@ -231,7 +231,6 @@ def process_proxies(proxy_ts,collection_all,options):
         proxy_lat                 = proxy_ts[i]['geo_meanLat']
         proxy_lon                 = proxy_ts[i]['geo_meanLon']
         proxy_seasonality_txt     = proxy_ts[i]['paleoData_interpretation'][0]['seasonality']
-        proxy_seasonality_general = proxy_ts[i]['paleoData_interpretation'][0]['seasonalityGeneral']
         try:    proxy_uncertainty = proxy_ts[i]['paleoData_temperature12kUncertainty']
         except: proxy_uncertainty = missing_uncertainty_value; missing_uncertainty += 1
         proxy_uncertainty = float(proxy_uncertainty)
@@ -270,7 +269,6 @@ def process_proxies(proxy_ts,collection_all,options):
         proxy_data['metadata'][i,2] = str(proxy_lat)
         proxy_data['metadata'][i,3] = str(proxy_lon)
         proxy_data['metadata'][i,4] = str(proxy_seasonality_array)
-        proxy_data['metadata'][i,5] = proxy_seasonality_general
         proxy_data['metadata'][i,6] = str(np.median(proxy_ages[1:]-proxy_ages[:-1]))  #TODO: Consider calculating this a different way.
         proxy_data['metadata'][i,7] = collection_all[i]
         proxy_data['lats'][i] = proxy_lat
